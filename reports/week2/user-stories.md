@@ -4,7 +4,7 @@
 **MoSCoW priority:** Must Have
 
 As a network administrator,
-I want to see the total number of packets received and transmitted by the Traffic Processor in real time,
+I want to see the total number of packets received and transmitted by the Traffic Processor on the web interface in real time,
 so that I can quickly verify that the TP is correctly seeing traffic on the network segment.
 
 ---
@@ -25,7 +25,7 @@ so that I can intuitively understand and rate my metrics.
 **Requirement status:** Active
 **MoSCoW priority:** Must Have
 
-As a ~~home user~~ network administrato,
+As a ~~home user~~ network administrator,
 I want to have the possibility to run the Traffic Processor inside a VM,
 so that I can test and validate the platform without dedicated hardware.
 
@@ -37,7 +37,7 @@ so that I can test and validate the platform without dedicated hardware.
 **MoSCoW priority:** Should Have
 
 As a network administrator,
-I want to see, for each source‑destination pair, the number of connections and the ports used,
+I want to see, for each source‑destination pair, the number of connections and the ports used on the web interface,
 so that I can detect unusual connection patterns.
 
 ---
@@ -45,10 +45,10 @@ so that I can detect unusual connection patterns.
 ## US-05: Block Traffic Based on a Blacklist
 
 **Requirement status:** Active
-**MoSCoW priority:** Should Have
+**MoSCoW priority:** Could Have
 
 As a network administrator,
-I want to define a list of IP addresses or ports to block/allow, and have the TP drop those packets,
+I want to define a list of incoming/outcoming connections separatly to block/allow, and have the TP drop those packets,
 so that I can prevent access to known malicious or undesirable destinations.
 
 ---
@@ -59,7 +59,7 @@ so that I can prevent access to known malicious or undesirable destinations.
 **MoSCoW priority:** Could Have
 
 As a network administrator,
-I want to view history of packet and connection data with timestamps,
+I want to view history of packet and connection data with timestamps, all stored in software's database,
 so that I can produce audit reports or investigate past incidents.
 
 ---
@@ -105,3 +105,14 @@ so that the network does not experience unexpected outages or security gaps.
 As a home user,
 I want to physically connect the TP device between my router and the internet, power it on, and have it start working with default rules without any configuration,
 so that I can run the software without deep network knowledge.
+
+---
+
+## US-11: Deploy TP as a laptop/microcomputer
+
+**Requirement status:** Active
+**MoSCoW priority:** Should Have
+
+As a network administrator,
+I want to have the possibility to run the Traffic Processor inside a separate laptop/microcomputer,
+so that I can increase traffic capacity of the component.
