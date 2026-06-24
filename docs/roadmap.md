@@ -1,4 +1,5 @@
 ### Sprint 1
+
 - 15/06/2026 - 21/06/2026
 - [MVP v1](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/milestone/1) is up and running
 - TP is counting packets and successfully sending them to the web dashboard
@@ -7,12 +8,21 @@
 - [Deploy TP as a Virtual Machine](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/issues/8)
 
 ### Sprint 2
+
 - 22/06/2026 - 28/06/2026
+- [Milestone](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/milestone/1)
+- More functionality for the TP
+- [Documentation](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/issues/19)
+- [Split packet counting](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/issues/36)
+- [Combine CN and TP](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/issues/35)
+<!--TBD all the other tasks-->
 
 ### Sprint 3
+
 - 29/06/2026 - 5/07/2026
 
 ### Sprint 4
+
 - 6/07/2026 - 12/07/2026
 
 <!--
