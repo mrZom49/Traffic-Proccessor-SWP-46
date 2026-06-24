@@ -44,7 +44,7 @@ def packets():
     }
 
 
-@app.post('/load')
+@app.post('/')
 def load(body: Packet):
     global last_info
     last_info = body
