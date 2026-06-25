@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Traffic Processor</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=2" />
   </head>
   <body>
     <main class="page">
@@ -13,6 +13,28 @@
         <p class="label" id="primary-label">Bytes per second</p>
         <div class="primary-value" id="primary-value">0</div>
         <p class="rate" id="rate-value">0 total bytes</p>
+
+        <div class="direction-stats" id="bytes-direction-stats">
+          <div>
+            <span>Incoming bytes</span>
+            <strong id="incoming-bytes">0 B</strong>
+          </div>
+          <div>
+            <span>Outgoing bytes</span>
+            <strong id="outgoing-bytes">0 B</strong>
+          </div>
+        </div>
+
+        <div class="direction-stats" id="packet-direction-stats" hidden>
+          <div>
+            <span>Incoming packets</span>
+            <strong id="incoming-packets">0</strong>
+          </div>
+          <div>
+            <span>Outgoing packets</span>
+            <strong id="outgoing-packets">0</strong>
+          </div>
+        </div>
 
         <div class="packet-types" id="packet-types" hidden>
           <div>TCP <strong id="tcp-packets">0</strong></div>
@@ -25,6 +47,6 @@
       <button class="mode-button" id="mode-button" type="button">Show packets</button>
     </main>
 
-    <script src="./app.js"></script>
+    <script src="./app.js?v=2"></script>
   </body>
 </html>

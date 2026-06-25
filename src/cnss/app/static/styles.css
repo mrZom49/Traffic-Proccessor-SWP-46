@@ -64,15 +64,24 @@ body {
   font-weight: 700;
 }
 
+.direction-stats,
 .packet-types {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
   margin-top: 22px;
   text-align: left;
   line-height: 1.4;
 }
 
+.direction-stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.packet-types {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.direction-stats div,
 .packet-types div {
   border: 1px solid #d7deea;
   border-radius: 8px;
@@ -80,9 +89,16 @@ body {
   background: #fbfcff;
 }
 
+.direction-stats span,
+.packet-types div {
+  color: #5d6a7c;
+}
+
+.direction-stats strong,
 .packet-types strong {
   display: block;
   margin-top: 4px;
+  color: #18212f;
   font-size: 22px;
 }
 
