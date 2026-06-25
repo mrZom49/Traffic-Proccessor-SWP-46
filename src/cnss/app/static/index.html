@@ -10,11 +10,11 @@
     <main class="page">
       <section class="panel" aria-live="polite">
         <span class="diode" id="status-diode" title="Traffic processor status"></span>
-        <p class="label" id="primary-label">Total packets</p>
+        <p class="label" id="primary-label">Bytes per second</p>
         <div class="primary-value" id="primary-value">0</div>
-        <p class="rate" id="rate-value">0 packets/s</p>
+        <p class="rate" id="rate-value">0 total bytes</p>
 
-        <div class="packet-types" id="packet-types">
+        <div class="packet-types" id="packet-types" hidden>
           <div>TCP <strong id="tcp-packets">0</strong></div>
           <div>UDP <strong id="udp-packets">0</strong></div>
           <div>ICMP <strong id="icmp-packets">0</strong></div>
@@ -22,7 +22,7 @@
         </div>
       </section>
 
-      <button class="mode-button" id="mode-button" type="button">Bytes only</button>
+      <button class="mode-button" id="mode-button" type="button">Show packets</button>
     </main>
 
     <script src="./app.js"></script>

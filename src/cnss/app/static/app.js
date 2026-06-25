@@ -1,24 +1,21 @@
-const statusDiode = document.getElementById("status-diode");
-const primaryLabel = document.getElementById("primary-label");
-const primaryValue = document.getElementById("primary-value");
-const rateValue = document.getElementById("rate-value");
-const packetTypes = document.getElementById("packet-types");
-const modeButton = document.getElementById("mode-button");
-const packetNodes = {
-  tcp_packets: document.getElementById("tcp-packets"),
-  udp_packets: document.getElementById("udp-packets"),
-  icmp_packets: document.getElementById("icmp-packets"),
-  other_packets: document.getElementById("other-packets"),
+const POLL_INTERVAL_MS = 1000;
+
+const elements = {
+  statusDiode: document.getElementById("status-diode"),
+  primaryLabel: document.getElementById("primary-label"),
+  primaryValue: document.getElementById("primary-value"),
+  secondaryValue: document.getElementById("rate-value"),
+  packetTypes: document.getElementById("packet-types"),
+  modeButton: document.getElementById("mode-button"),
+  packetCounts: {
+    tcp_packets: document.getElementById("tcp-packets"),
+    udp_packets: document.getElementById("udp-packets"),
+    icmp_packets: document.getElementById("icmp-packets"),
+    other_packets: document.getElementById("other-packets"),
+  },
 };
 
-const params = new URLSearchParams(window.location.search);
-const defaultSocketUrl =
-  window.location.protocol === "file:"
-    ? "ws://localhost:8080/ws"
-    : `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/ws`;
-const socketUrl = params.get("ws") || defaultSocketUrl;
-
-const stats = {
+const emptyStats = {
   status: "offline",
   total_packets: 0,
   total_bytes: 0,
@@ -30,76 +27,96 @@ const stats = {
   other_packets: 0,
 };
 
-let socket;
-let reconnectTimer;
-let bytesOnly = false;
+const state = {
+  mode: "bytes",
+  stats: { ...emptyStats },
+};
+
+function getStatsEndpoint() {
+  const params = new URLSearchParams(window.location.search);
+  const configuredEndpoint = params.get("api");
+
+  if (configuredEndpoint) {
+    return configuredEndpoint;
+  }
+
+  const runsOutsideBackend =
+    window.location.protocol === "file:" ||
+    (["localhost", "127.0.0.1"].includes(window.location.hostname) &&
+      window.location.port !== "8080");
+
+  return runsOutsideBackend
+    ? "http://localhost:8080/packets"
+    : `${window.location.origin}/packets`;
+}
+
+const statsEndpoint = getStatsEndpoint();
 
 function formatNumber(value) {
   return Number(value || 0).toLocaleString();
 }
 
-function render() {
-  statusDiode.classList.toggle("offline", stats.status !== "online");
-  packetTypes.hidden = bytesOnly;
-  modeButton.textContent = bytesOnly ? "Show packets" : "Bytes only";
+function renderBytesMode(stats) {
+  elements.primaryLabel.textContent = "Bytes per second";
+  elements.primaryValue.textContent = `${formatNumber(stats.bytes_per_second)} B/s`;
+  elements.secondaryValue.textContent = `${formatNumber(stats.total_bytes)} total bytes`;
+  elements.packetTypes.hidden = true;
+  elements.modeButton.textContent = "Show packets";
+}
 
-  primaryLabel.textContent = bytesOnly ? "Total bytes" : "Total packets";
-  primaryValue.textContent = formatNumber(bytesOnly ? stats.total_bytes : stats.total_packets);
-  rateValue.textContent = bytesOnly
-    ? `${formatNumber(stats.bytes_per_second)} bytes/s`
-    : `${formatNumber(stats.packets_per_second)} packets/s`;
+function renderPacketsMode(stats) {
+  elements.primaryLabel.textContent = "Packets per second";
+  elements.primaryValue.textContent = `${formatNumber(stats.packets_per_second)} packets/s`;
+  elements.secondaryValue.textContent = `${formatNumber(stats.total_packets)} total packets`;
+  elements.packetTypes.hidden = false;
+  elements.modeButton.textContent = "Show bytes";
 
-  Object.entries(packetNodes).forEach(([key, node]) => {
+  Object.entries(elements.packetCounts).forEach(([key, node]) => {
     node.textContent = formatNumber(stats[key]);
   });
 }
 
-function readPayload(data) {
-  if (typeof data !== "string") {
-    return;
+function render() {
+  const isOnline = state.stats.status === "online";
+
+  elements.statusDiode.classList.toggle("offline", !isOnline);
+
+  if (state.mode === "packets") {
+    renderPacketsMode(state.stats);
+  } else {
+    renderBytesMode(state.stats);
   }
 
+  if (!isOnline) {
+    elements.secondaryValue.textContent = "Waiting for backend data";
+  }
+}
+
+async function loadStats() {
   try {
-    const payload = JSON.parse(data);
-    Object.assign(stats, payload);
-    render();
+    const response = await fetch(statsEndpoint, { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`Backend returned ${response.status}`);
+    }
+
+    state.stats = { ...emptyStats, ...(await response.json()) };
   } catch {
-    return;
+    state.stats = { ...state.stats, status: "offline" };
   }
+
+  render();
 }
 
-function connect() {
-  socket = new WebSocket(socketUrl);
-
-  socket.addEventListener("open", () => {
-    socket.send(JSON.stringify({ type: "get_stats" }));
-  });
-
-
-  socket.addEventListener("message", (event) => {
-    readPayload(event.data);
-  });
-
-  socket.addEventListener("close", () => {
-    stats.status = "offline";
-    render();
-    reconnectTimer = window.setTimeout(connect, 1000);
-  });
-
-  socket.addEventListener("error", () => {
-    socket.close();
-  });
-}
-
-window.addEventListener("beforeunload", () => {
-  window.clearTimeout(reconnectTimer);
-  socket?.close();
-});
-
-modeButton.addEventListener("click", () => {
-  bytesOnly = !bytesOnly;
+elements.modeButton.addEventListener("click", () => {
+  state.mode = state.mode === "bytes" ? "packets" : "bytes";
   render();
 });
 
 render();
-connect();
+loadStats();
+
+const pollTimer = window.setInterval(loadStats, POLL_INTERVAL_MS);
+
+window.addEventListener("beforeunload", () => {
+  window.clearInterval(pollTimer);
+});

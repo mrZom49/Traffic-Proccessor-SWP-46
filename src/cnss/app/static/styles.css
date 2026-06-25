@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 html,
 body {
   margin: 0;
@@ -88,6 +92,7 @@ body {
   background: #ffffff;
   color: #18212f;
   cursor: pointer;
+  min-width: 116px;
   padding: 9px 14px;
   font: inherit;
 }
