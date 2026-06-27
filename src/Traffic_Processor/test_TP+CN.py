@@ -3,8 +3,10 @@ from unittest.mock import Mock, patch, MagicMock
 import json
 from urllib import error
 from datetime import datetime
+import netifaces
+from scapy.all import IP, TCP, UDP, ICMP, Ether
 
-from your_module import TrafficProcessor  # replace with actual import
+from tproc import TrafficProcessor
 
 
 @pytest.fixture
