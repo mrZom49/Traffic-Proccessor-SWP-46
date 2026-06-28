@@ -8,6 +8,7 @@ exclude = [
     
     # GitHub settings pages (require login)
     "https://github.com/mrZom49/Traffic-Proccessor-SWP-46/settings/rules/",
+    "https://github.com/SWP-Team-46/Traffic-Proccessor/settings/rules/",
     
     # Missing local files
     "reports/week2/images/",
