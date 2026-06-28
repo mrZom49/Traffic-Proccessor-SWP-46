@@ -53,9 +53,9 @@
 
 | UAT | Description | Result |
 |-------|--------|-------|
-| UAT‑001 | Verify Web Interface Displays Live Traffic Statistic |	✅ Passed |
-| UAT‑002 | Verify Traffic Processor Operation via Docker | ✅ Passed |
-| UAT‑003 | Verify Directional Traffic Classification | ✅ Passed |
+| UAT‑001 | Verify Web Interface Displays Live Traffic Statistic | Passed |
+| UAT‑002 | Verify Traffic Processor Operation via Docker | Passed |
+| UAT‑003 | Verify Directional Traffic Classification | Passed |
 
 No blocking issues were observed; only minor improvements to UAT‑003 instructions were noted and have been applied
 
