@@ -14,8 +14,8 @@
 - TP and CN are now united, TP now counts incoming/outcoming packets, more documentation
 - [Deployed Product](http://147.45.234.218:8080)
 - [README](/README.md)
-- Customer feedback response table with feedback points and resulting PBIs or issues.
-- Explanation of feedback not addressed.
+- Customer feedback resulted in creation of [#36](https://github.com/SWP-Team-46/Traffic-Proccessor/issues/36) and [#35](https://github.com/SWP-Team-46/Traffic-Proccessor/issues/35) and [#74](https://github.com/SWP-Team-46/Traffic-Proccessor/issues/74)
+- All the provided feedback was addressed
 - [Roadmap](/docs/roadmap.md)
 - [Definition of done](/docs/definition-of-done.md)
 - [Quality requiremnets](/docs/quality-requirements.md)
@@ -35,16 +35,16 @@
 - Link to the SemVer release mapped to the Assignment 4 Sprint increment.
 - [CHANGELOG](/CHANGELOG.md)
 - Public sanitized demo video shorter than two minutes.
--  Public sanitized UAT results summary.
+- Public sanitized UAT results summary.
 - [Meeting transcript](/reports/week4/customer-review-transcript.md)
--  [Meeting summary](/reports/week4/customer-review-summary.md)
--  [Reflection](/reports/week4/reflection.md)
--  [Retrospective](/reports/week4/retrospective.md)
--  [LLM report](/reports/week4/llm-report.md)
--  Summary of the current product status.
--  Summary of the next steps.
--  Contribution traceability table mapping each team member to issues, PRs/MRs, review activity, testing, quality, automation, or documentation work.
--  Embedded screenshots from `reports/week4/images/` for:
+- [Meeting summary](/reports/week4/customer-review-summary.md)
+- [Reflection](/reports/week4/reflection.md)
+- [Retrospective](/reports/week4/retrospective.md)
+- [LLM report](/reports/week4/llm-report.md)
+- Summary of the current product status.
+- Summary of the next steps.
+- Contribution traceability table mapping each team member to issues, PRs/MRs, review activity, testing, quality, automation, or documentation work.
+- Embedded screenshots from `reports/week4/images/` for:
 
     * Sprint milestone
     * Latest protected-default-branch CI run
