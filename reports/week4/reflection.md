@@ -7,7 +7,7 @@ We learned to process customer feedback, turn requests into backlog tasks, and d
 We confirmed that the new UI layout with separate one-way and round-trip counters perfectly satisfies the client. The automated data pipeline remains stable during this telemetry split.
 
 ## Friction and gaps
-CI pipeline failed in PR 47/55. Tests are under development.
+CI pipeline failed in PR 47/55. Tests are currently under active development.
 
 ## Planned response
-Next sprint we will write tests and reach 30% coverage.
+We are writing tests now to reach the mandatory 30% coverage gate before the sprint ends.
