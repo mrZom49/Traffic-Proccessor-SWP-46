@@ -1,20 +1,20 @@
 ### Sprint 1
 
 - 15/06/2026 - 21/06/2026
-- [MVP v1](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/milestone/1) is up and running
+- [MVP v1](https://github.com/SWP-Team-46/Traffic-Proccessor/milestone/1) is up and running
 - TP is counting packets and successfully sending them to the web dashboard
-- [Packet Counting](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/issues/6)
-- [Web Dashboard](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/issues/7)
-- [Deploy TP as a Virtual Machine](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/issues/8)
+- [Packet Counting](https://github.com/SWP-Team-46/Traffic-Proccessor/issues/6)
+- [Web Dashboard](https://github.com/SWP-Team-46/Traffic-Proccessor/issues/7)
+- [Deploy TP as a Virtual Machine](https://github.com/SWP-Team-46/Traffic-Proccessor/issues/8)
 
 ### Sprint 2
 
 - 22/06/2026 - 28/06/2026
-- [Milestone](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/milestone/1)
+- [Milestone](https://github.com/SWP-Team-46/Traffic-Proccessor/milestone/2)
 - More functionality for the TP
-- [Documentation](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/issues/19)
-- [Split packet counting](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/issues/36)
-- [Combine CN and TP](https://github.com/mrZom49/Traffic-Proccessor-SWP-46/issues/35)
+- [Documentation](https://github.com/SWP-Team-46/Traffic-Proccessor/issues/19)
+- [Split packet counting](https://github.com/SWP-Team-46/Traffic-Proccessor/issues/36)
+- [Combine CN and TP](https://github.com/SWP-Team-46/Traffic-Proccessor/issues/35)
 <!--TBD all the other tasks-->
 
 ### Sprint 3
