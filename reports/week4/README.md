@@ -14,8 +14,8 @@
 - TP and CN are now united, TP now counts incoming/outcoming packets, more documentation
 - [Deployed Product](http://147.45.234.218:8080)
 - [README](/README.md)
-- Customer feedback response table with feedback points and resulting PBIs or issues.
-- Explanation of feedback not addressed.
+- Customer feedback resulted in creation of [#36](https://github.com/SWP-Team-46/Traffic-Proccessor/issues/36) and [#35](https://github.com/SWP-Team-46/Traffic-Proccessor/issues/35)
+- All the provided feedback was addressed
 - [Roadmap](/docs/roadmap.md)
 - [Definition of done](/docs/definition-of-done.md)
 - [Quality requiremnets](/docs/quality-requirements.md)
