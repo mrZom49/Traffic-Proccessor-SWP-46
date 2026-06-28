@@ -28,11 +28,11 @@
 - Links to integration tests.
 - Links to automated quality requirement tests.
 - [CI pipeline](/.github/workflows/main.yml)
-- Link to the latest protected-default-branch CI run.
+- [Protected-default-branch CI run](https://github.com/SWP-Team-46/Traffic-Proccessor/actions/runs/28325503855)
 - [Protection](https://github.com/SWP-Team-46/Traffic-Proccessor/settings/rules/17694937) <!--IDK what to put here-->
 - Screenshots or report links for linting, coverage, tests, and the additional QA check.
-- Short explanation of how the Assignment 4 tests, CI checks, quality requirement tests, and Definition of Done will continue to govern later project work.
-- Link to the SemVer release mapped to the Assignment 4 Sprint increment.
+- The CI pipeline, test suite, and coverage thresholds established in Assignment 4 will become mandatory gates for every future pull request—blocking merges if linting, unit tests, or coverage requirements fail. As new features are added, the test suite must grow alongside them to prevent regressions and maintain the coverage baseline. Finally, the Definition of Done will formally tie story completion to passing all CI checks and smoke tests, ensuring that "done" always means "production-ready"
+- Link to the SemVer release mapped to the Assignment 4 Sprint increment
 - [CHANGELOG](/CHANGELOG.md)
 - Public sanitized demo video shorter than two minutes.
 - Public sanitized UAT results summary.
