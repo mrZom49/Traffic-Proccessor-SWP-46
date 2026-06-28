@@ -29,7 +29,7 @@
 - Links to automated quality requirement tests.
 - [CI pipeline](/.github/workflows/main.yml)
 - Link to the latest protected-default-branch CI run.
-- [Protection](https://github.com/SWP-Team-46/Traffic-Proccessor/settings/rules/17694937) <!--IDK what to put here-->
+- Main is protected by ruleset: require PR before merging, at least 1 approval is required to merge, and pushing is restricted for everyone  <!--IDK what to put here-->
 - Screenshots or report links for linting, coverage, tests, and the additional QA check.
 - Short explanation of how the Assignment 4 tests, CI checks, quality requirement tests, and Definition of Done will continue to govern later project work.
 - Link to the SemVer release mapped to the Assignment 4 Sprint increment.
