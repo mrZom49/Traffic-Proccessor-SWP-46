@@ -24,18 +24,18 @@
 - [User acceptance tests](/docs/user-acceptance-tests.md)
 - Summary of the quality model used and selected ISO/IEC 25010 sub-characteristics.
 - Testing status summary, including critical modules and per-module line coverage status.
-   - Unit Tests: src/test_TP+CN.py
-   - Quality Requirement Tests: src/qr_test.py
+   - Unit Tests: [test_TP+CN.py](/src/Traffic_Processor/test_TP+CN.py)
+   - Quality Requirement Tests: [qr_test.py](/src/qr_test.py)
    - Coverage Report: Generated in CI as coverage-report artifact
    - CI Test Logs: Available in GitHub Actions workflow runs
-- [TP unit tests](/src/Traffic_Processor/test_TP+CN.py)
+- [Unit tests](/src/Traffic_Processor/test_TP+CN.py)
 - Links to integration tests.
-- Links to automated quality requirement tests.
+- [Quality requirements test](/src/qr_test.py)
 - [CI pipeline](/.github/workflows/main.yml)
 - [Protected-default-branch CI run](https://github.com/SWP-Team-46/Traffic-Proccessor/actions/runs/28325503855)
 - [Protection](https://github.com/SWP-Team-46/Traffic-Proccessor/settings/rules/17694937) <!--IDK what to put here-->
 - Screenshots or report links for linting, coverage, tests, and the additional QA check.
-- The CI pipeline, test suite, and coverage thresholds established in Assignment 4 will become mandatory gates for every future pull request—blocking merges if linting, unit tests, or coverage requirements fail. As new features are added, the test suite must grow alongside them to prevent regressions and maintain the coverage baseline. Finally, the Definition of Done will formally tie story completion to passing all CI checks and smoke tests, ensuring that "done" always means "production-ready"
+- The CI pipeline, test suite, and coverage thresholds established in Assignment 4 will become mandatory gates for every future pull request blocking merges if linting, unit tests, or coverage requirements fail. As new features are added, the test suite must grow alongside them to prevent regressions and maintain the coverage baseline. Finally, the Definition of Done will formally tie story completion to passing all CI checks and smoke tests, ensuring that "done" always means "production-ready"
 - Link to the SemVer release mapped to the Assignment 4 Sprint increment
 - [CHANGELOG](/CHANGELOG.md)
 - Public sanitized demo video shorter than two minutes.
