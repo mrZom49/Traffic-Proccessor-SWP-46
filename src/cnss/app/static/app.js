@@ -5,6 +5,12 @@ const elements = {
   primaryLabel: document.getElementById("primary-label"),
   primaryValue: document.getElementById("primary-value"),
   secondaryValue: document.getElementById("rate-value"),
+  bytesDirectionStats: document.getElementById("bytes-direction-stats"),
+  packetDirectionStats: document.getElementById("packet-direction-stats"),
+  incomingBytes: document.getElementById("incoming-bytes"),
+  outgoingBytes: document.getElementById("outgoing-bytes"),
+  incomingPackets: document.getElementById("incoming-packets"),
+  outgoingPackets: document.getElementById("outgoing-packets"),
   packetTypes: document.getElementById("packet-types"),
   modeButton: document.getElementById("mode-button"),
   packetCounts: {
@@ -19,6 +25,10 @@ const emptyStats = {
   status: "offline",
   total_packets: 0,
   total_bytes: 0,
+  incoming_packets: 0,
+  outgoing_packets: 0,
+  incoming_bytes: 0,
+  outgoing_bytes: 0,
   packets_per_second: 0,
   bytes_per_second: 0,
   tcp_packets: 0,
@@ -56,10 +66,45 @@ function formatNumber(value) {
   return Number(value || 0).toLocaleString();
 }
 
+function normalizeStats(payload) {
+  const stats = { ...emptyStats, ...payload };
+
+  stats.incoming_packets =
+    stats.incoming_packets || payload.in_packets || payload.input_packets || 0;
+  stats.outgoing_packets =
+    stats.outgoing_packets ||
+    payload.outcoming_packets ||
+    payload.out_packets ||
+    payload.output_packets ||
+    0;
+  stats.incoming_bytes = stats.incoming_bytes || payload.in_bytes || payload.input_bytes || 0;
+  stats.outgoing_bytes =
+    stats.outgoing_bytes ||
+    payload.outcoming_bytes ||
+    payload.out_bytes ||
+    payload.output_bytes ||
+    0;
+
+  const protocolPackets =
+    stats.tcp_packets + stats.udp_packets + stats.icmp_packets + stats.other_packets;
+  const directionPackets = stats.incoming_packets + stats.outgoing_packets;
+  const directionBytes = stats.incoming_bytes + stats.outgoing_bytes;
+
+  return {
+    ...stats,
+    total_packets: stats.total_packets || protocolPackets || directionPackets,
+    total_bytes: stats.total_bytes || directionBytes,
+  };
+}
+
 function renderBytesMode(stats) {
   elements.primaryLabel.textContent = "Bytes per second";
   elements.primaryValue.textContent = `${formatNumber(stats.bytes_per_second)} B/s`;
   elements.secondaryValue.textContent = `${formatNumber(stats.total_bytes)} total bytes`;
+  elements.incomingBytes.textContent = `${formatNumber(stats.incoming_bytes)} B`;
+  elements.outgoingBytes.textContent = `${formatNumber(stats.outgoing_bytes)} B`;
+  elements.bytesDirectionStats.hidden = false;
+  elements.packetDirectionStats.hidden = true;
   elements.packetTypes.hidden = true;
   elements.modeButton.textContent = "Show packets";
 }
@@ -68,6 +113,10 @@ function renderPacketsMode(stats) {
   elements.primaryLabel.textContent = "Packets per second";
   elements.primaryValue.textContent = `${formatNumber(stats.packets_per_second)} packets/s`;
   elements.secondaryValue.textContent = `${formatNumber(stats.total_packets)} total packets`;
+  elements.incomingPackets.textContent = formatNumber(stats.incoming_packets);
+  elements.outgoingPackets.textContent = formatNumber(stats.outgoing_packets);
+  elements.bytesDirectionStats.hidden = true;
+  elements.packetDirectionStats.hidden = false;
   elements.packetTypes.hidden = false;
   elements.modeButton.textContent = "Show bytes";
 
@@ -99,7 +148,7 @@ async function loadStats() {
       throw new Error(`Backend returned ${response.status}`);
     }
 
-    state.stats = { ...emptyStats, ...(await response.json()) };
+    state.stats = normalizeStats(await response.json());
   } catch {
     state.stats = { ...state.stats, status: "offline" };
   }

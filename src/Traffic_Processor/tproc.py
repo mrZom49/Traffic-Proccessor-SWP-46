@@ -99,6 +99,8 @@ class TrafficProcessor:
         
         return {
             "timestamp": datetime.now().isoformat(),
+            "total_packets": self.packet_cnt,
+            "total_bytes": self.bytes_cnt,
             "incoming_packets": self.incoming_packets,
             "outgoing_packets": self.outgoing_packets,
             "incoming_bytes": self.incoming_bytes,
