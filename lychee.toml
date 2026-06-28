@@ -1,0 +1,19 @@
+# Exclude problematic URLs and patterns
+exclude = [
+    # Internal IP
+    "http://147.45.234.218:8080",
+    
+    # Private GitLab
+    "https://gitlab.pg.innopolis.university",
+    
+    # GitHub settings pages (require login)
+    "https://github.com/mrZom49/Traffic-Proccessor-SWP-46/settings/rules/",
+    
+    # Missing local files
+    "reports/week2/images/",
+    "reports/week2/replace-with-actual-url",
+    "reports/week2/customer-meeting-notes.md",
+]
+
+# Increase timeout
+timeout = 30

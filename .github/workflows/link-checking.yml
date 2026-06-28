@@ -1,0 +1,21 @@
+name: Link Checker
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1
+        with:
+          # Files to check; here it checks all Markdown files
+          args: --verbose --no-progress './**/*.md'
+          # Mark the PR or commit as failed if broken links are found
+          fail: true
