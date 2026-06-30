@@ -1,0 +1,38 @@
+@startuml
+!include <C4/C4_Component>
+!include <C4/C4_Container>
+
+title Component Diagram - Traffic Processor System
+
+Person(end_user, "End User", "Accesses the web dashboard to view traffic statistics")
+
+System_Boundary(tp_system, "Traffic Processor (TP)") {
+    Component(packet_sniffer, "Packet Sniffer", "Scapy", "Captures packets from the network interface")
+    Component(packet_classifier, "Packet Classifier", "Python", "Classifies packets by protocol (TCP, UDP, ICMP, Other)")
+    Component(direction_tracker, "Direction Tracker", "Python", "Determines incoming/outgoing based on local IP/MAC")
+    Component(stats_calculator, "Statistics Calculator", "Python", "Computes PPS, BPS, and aggregates counters")
+    Component(http_sender, "HTTP Sender", "Python urllib", "Sends statistics batches to CNSS via HTTP POST")
+}
+
+System_Boundary(cnss_system, "Control and Status Server (CNSS)") {
+    Component(api_endpoints, "API Endpoints", "FastAPI", "POST / receives stats, GET /packets returns latest data")
+    Component(packet_store, "Packet Store", "In-Memory (PostgreSQL ready)", "Maintains latest packet statistics")
+    Component(static_files, "Static Files", "HTML/CSS/JS", "Serves the web dashboard")
+}
+
+System_Ext(network, "Network Interface", "Source of live packet data")
+System_Ext(postgres, "PostgreSQL", "Planned persistent storage")
+
+Rel(network, packet_sniffer, "Captures packets from", "Raw socket")
+Rel(packet_sniffer, packet_classifier, "Passes raw packet", "In-memory")
+Rel(packet_classifier, direction_tracker, "Passes classified packet", "In-memory")
+Rel(direction_tracker, stats_calculator, "Provides direction info", "In-memory")
+Rel(stats_calculator, http_sender, "Provides statistics batch", "In-memory")
+Rel(http_sender, api_endpoints, "Sends statistics via", "HTTP POST (JSON)")
+Rel(api_endpoints, packet_store, "Stores validated data", "In-memory")
+Rel(packet_store, api_endpoints, "Retrieves latest data", "In-memory")
+Rel(api_endpoints, static_files, "Serves", "HTTP")
+Rel(static_files, end_user, "Serves dashboard to", "HTTP")
+Rel(packet_store, postgres, "Planned persistence to", "SQL (future)")
+
+@enduml
