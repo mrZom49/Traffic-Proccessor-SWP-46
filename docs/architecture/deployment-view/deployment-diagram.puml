@@ -1,0 +1,27 @@
+@startuml
+!include <C4/C4_Deployment>
+
+title Deployment Diagram - Traffic Processor System
+
+Deployment_Node(docker_host, "Docker Host", "Linux/Windows/macOS") {
+    Deployment_Node(compose, "Docker Compose", "Orchestrates containers") {
+        Container(tproc, "tproc", "Docker", "Traffic Processor - Packet capture and statistics")
+        Container(cnss, "cnss", "Docker", "Control and Status Server - FastAPI")
+        Container(db, "db", "PostgreSQL", "Persistent storage (planned)")
+    }
+}
+
+Deployment_Node(network, "Network", "External") {
+    System_Ext(net_iface, "Network Interface", "Live traffic source")
+}
+
+Deployment_Node(user_node, "End User Device", "Browser") {
+    System_Ext(end_user, "End User", "Accesses dashboard")
+}
+
+Rel(net_iface, tproc, "Captures packets from", "Raw socket (host network)")
+Rel(tproc, cnss, "Sends statistics via", "HTTP POST (port 8000)")
+Rel(cnss, db, "Planned persistence to", "SQL (port 5432)")
+Rel(end_user, cnss, "Accesses dashboard via", "HTTP (port 8000)")
+
+@enduml
