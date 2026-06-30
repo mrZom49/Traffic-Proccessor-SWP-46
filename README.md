@@ -8,6 +8,8 @@
 
 ---
 
+[Development process](/docs/development-process.md)
+
 To run via [docker](https://www.docker.com/):
 
 Run in src folder to start:
