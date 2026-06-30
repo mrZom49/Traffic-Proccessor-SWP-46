@@ -1,0 +1,52 @@
+@startuml
+title Sequence Diagram - Live Traffic Update Flow
+
+actor "End User" as user
+participant "Web Dashboard" as dashboard
+participant "CNSS API" as api
+participant "Packet Store" as store
+participant "Traffic Processor" as tp
+participant "Network Interface" as net
+
+== Packet Capture and Processing ==
+
+net -> tp: Live packets
+activate tp
+tp -> tp: Sniff packet (Scapy)
+tp -> tp: Classify protocol (TCP/UDP/ICMP)
+tp -> tp: Determine direction (in/out)
+tp -> tp: Update counters and rates
+deactivate tp
+
+== Statistics Transmission ==
+
+loop Every delay seconds (default 0.5s)
+    tp -> tp: Build statistics batch (JSON)
+    tp -> api: HTTP POST / (stats)
+    activate api
+    api -> api: Validate against Packet schema
+    api -> store: Store latest stats
+    activate store
+    store --> api: Acknowledged
+    deactivate store
+    api --> tp: HTTP 200 OK
+    deactivate api
+end
+
+== Dashboard Refresh ==
+
+user -> dashboard: View/refresh dashboard
+activate dashboard
+dashboard -> api: HTTP GET /packets
+activate api
+api -> store: Retrieve latest stats
+activate store
+store --> api: Return stats
+deactivate store
+api --> dashboard: JSON response (stats)
+deactivate api
+dashboard -> dashboard: Render charts and tables
+dashboard --> user: Display updated metrics
+deactivate dashboard
+
+@enduml
