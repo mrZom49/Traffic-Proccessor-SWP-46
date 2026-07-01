@@ -5,12 +5,12 @@ MAIN_SERVER = "http://cnss:8080"
 
 # Allow mode first: everyone can pass through the gate.
 # Later we can add blocked IPs here.
-#BLOCKED_IPS = set()
+BLOCKED_IPS = set()
 
 # For block test later:
-BLOCKED_IPS = {
-    "10.241.1.122"
-}
+#BLOCKED_IPS = {
+ #   "10.241.1.122"
+#}
 
 
 class GateHandler(BaseHTTPRequestHandler):
