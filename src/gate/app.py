@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import requests
 
-MAIN_SERVER = "http://cnss:8080"
+MAIN_SERVER = "http://mock_target:5000"
 
 # Allow mode first: everyone can pass through the gate.
 # Later we can add blocked IPs here.

@@ -3,14 +3,14 @@ version: "2.4"
 services:
 
   # --------------------------------------------------------
-  # 1. TRAFFIC PROCESSOR (tproc)
-  #    In the same network with cn.py
+  # 1. TProc - Packet caprute (shares gate's network)
   # --------------------------------------------------------
   tproc:
     build:
       context: ./Traffic_Processor
       dockerfile: Dockerfile.tproc
     container_name: tproc
+    network_mode: "service:gate"
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -19,21 +19,63 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     command: >
-      python tproc.py
-      --interface eth0
-      --url http://cnss:8080
+      python tproc.py -i eth0
+    depends_on:
+      - gate
+    restart: unless-stopped
+
+  # --------------------------------------------------------
+  # 2. Gate — Reverse Proxy with IP Filtering
+  # --------------------------------------------------------
+  gate:
+    build:
+      context: ./gate
+      dockerfile: Dockerfile
+    container_name: gate
+    ports:
+      - "8000:8080"
     networks:
       - swp-net
     restart: unless-stopped
 
   # --------------------------------------------------------
-  # 2. CNSS — Control & Status Server
+  # 3. Mock Target — Protected app
+  # --------------------------------------------------------
+  mock_target:
+    build:
+      context: ./mock_target
+      dockerfile: Dockerfile
+    container_name: mock_target
+    expose:
+      - "5000"                 # Internal only — NO public ports!
+    networks:
+      - swp-net
+    restart: unless-stopped
+
+  # --------------------------------------------------------
+  # 4. ERROR Server — Page for Blocked IPs
+  # --------------------------------------------------------
+  error-server:
+    build:
+      context: ./error_server
+      dockerfile: Dockerfile
+    container_name: error_server
+    expose:
+      - "5000"
+    networks:
+      - swp-net
+    restart: unless-stopped
+
+  # --------------------------------------------------------
+  # 5. CNSS — Control & Status Server
   # --------------------------------------------------------
   cnss:
     build:
       context: ./cnss
       dockerfile: Dockerfile
     container_name: cnss
+    ports:
+      - "8080:8080"
     expose:
       - "8080"
     environment:
@@ -54,7 +96,7 @@ services:
     restart: unless-stopped
 
   # --------------------------------------------------------
-  # 3. PostgreSQL
+  # 6. PostgreSQL
   # --------------------------------------------------------
   postgres:
     image: postgres:14.8-alpine3.18
@@ -75,13 +117,13 @@ services:
       - swp-net
     restart: unless-stopped
 
+networks:
+  swp-net:
+    driver: bridge
+    name: swp-net
+
 volumes:
   shared_data:
     driver: local
   postgres_data:
     driver: local
-
-networks:
-  swp-net:
-    driver: bridge
-    name: swp-net
